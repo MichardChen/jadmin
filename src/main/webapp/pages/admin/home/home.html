@@ -1,0 +1,46 @@
+<%
+DIRECTIVE SAFE_OUTPUT_OPEN;
+var headContent = {
+include("/pages/template/head.html"){}
+%>
+
+<script type="text/javascript">
+    var oper;
+    jQuery(function($) {
+        // 页面方法
+        oper = {
+            form : document.form1,
+            list : function() {
+                var url = 'admin/home';
+                this.form.action = url;
+                this.form.submit();
+            }
+        };
+        //显示Menu索引
+        showMenu('page_home');
+    });
+
+</script>
+
+<%
+};
+%>
+
+<%
+var bodyContent = {
+%>
+<!-- 菜单 -->
+<% include("/pages/template/menu.html"){} %>
+<br/><br/>
+<center><h2>如有相应需求与bug，可以联系(454979901@qq.com)</h2></center>
+<center><h2>演示系统只开放部分模块的新增权限，权限控制细颗粒（按钮级）！！！</h2></center>
+<center><h2>最新源码地址:<a href="https://git.oschina.net/supyuan/jfinal-admin" target="_blank">https://git.oschina.net/supyuan/jfinal-admin (一般延迟三日左右)</a></h2></center>
+<center><h2>如果您觉得该项目对您有帮助，请扫描下方二维码对我进行鼓励，以便我更好的维护和更新，谢谢支持！</h2></center>
+<center><img src="https://gitee.com/uploads/images/2017/1102/173054_4c736f43_22738.png" title="捐助一下" ></center>
+<center><h2>演示系统登录密码【123456】！！！</h2></center>
+
+<%}; %>
+
+<% layout("/pages/template/_layout.html",{head:headContent,body:bodyContent}){ %>
+DIRECTIVE SAFE_OUTPUT_CLOSE;
+<%} %>

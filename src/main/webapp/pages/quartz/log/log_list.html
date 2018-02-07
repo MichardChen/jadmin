@@ -1,0 +1,84 @@
+<% 
+	var headContent = {
+	include("/pages/template/head.html"){}
+%>
+
+<script type="text/javascript">
+var oper;
+jQuery(function($) {
+	// 页面方法
+	oper = {
+		width : 750,
+		height : 600,
+		form : document.form1,
+		list : function() {
+			var url = 'quartz/times/list';
+			this.form.action = url;
+			this.form.submit();
+		}
+	};
+	//显示Menu索引
+    showMenu('page_job');
+	showMenu('page_job_log');
+});
+
+//分页
+var paginator = function(page) {
+	oper.list();
+};
+</script>
+
+<%
+};
+
+var bodyContent = {
+%>
+	<form name="form1" action="" method="post"  class="form-inline" role="form">
+		<!-- 菜单 -->
+		<% include("/pages/template/menu.html"){} %>
+
+		<div class="tableSearch">
+			<%  //查询列表 %>
+			<button type="button" class="btn btn-default" style="visibility: hidden" onclick="oper.list();" name="search">
+			 		<span class="glyphicon glyphicon-search"></span> 查 询
+			</button>
+		</div>
+		
+		<!-- 数据列表 -->
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<%  // 列表头部 %>
+					<th name="timesName" class="sorting">执行开始时间</th>
+					<th name="endtimes" class="sorting">执行结束时间</th>
+					<th name="state" class="sorting">状态</th>
+					<th name="toQuartztimes" >下次执行时间</th>
+					<th name="createDate" >ip</th>
+					<th name="remark" >备注</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% for(item in page.list) {%>
+				<tr>
+					<%  // 列表内容 %>
+					<td>${flyfox.timestampToDate(item.begintimes)}</td>
+					<td>${flyfox.timestampToDate(item.endtimes)}</td>
+					<% if(item.state == '1') {%>
+						<td>成功</td>
+					<% } else if(item.state == '0') {%>
+						<td>失败</td>
+					<% } %>
+					<td>${item.nextruntime}</td>
+					<td>${item.run_ip}</td>
+					<td>${item.remark}</td>
+				</tr>
+			<% } %>
+			</tbody>
+		</table>
+		<%include("/pages/includes/paginator.html"){} %>
+	</form>
+<%}; %>
+
+
+<% layout("/pages/template/_layout.html",{head:headContent,body:bodyContent}){ %>
+<%} %>

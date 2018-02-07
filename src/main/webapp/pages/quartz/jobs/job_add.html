@@ -1,0 +1,77 @@
+<%
+DIRECTIVE SAFE_OUTPUT_OPEN;
+var headContent = {
+include("/pages/template/head.html"){}
+%>
+<script type="text/javascript">
+    var oper = {
+        save:function(id){
+            if(!validForm()) {
+                return false;
+            }
+            var url = 'quartz/jobs/save/';
+            form1.action = url;
+            form1.submit();
+            return true;
+        }
+    };
+
+</script>
+
+<%
+};
+var bodyContent = {
+%>
+<form name="form1" action="" method="post" class="form-horizontal"
+	  role="form" >
+	<input type="hidden" name="model.job_state" value="1"  />
+	<input type="hidden" name="model.uids"  />
+	<table class="table">
+		<% // 列表头部 %>
+		<tr>
+			<td>任务名称</td>
+			<td><input class="form-control" type="text" name="model.job_name" valid="vtext" validname="任务名称"   /></td>
+		</tr>
+		<tr>
+			<td>任务描述</td>
+			<td><input class="form-control" type="text" name="model.job_content" valid="vtext" validname="任务描述"   /></td>
+		</tr>
+		<tr>
+			<td>执行类</td>
+			<td>
+
+				<select name="model.jobclass_uids" class="form-control" valid="vselect" validname="执行类">
+					<option value="-1">---请选择执行类---</option>
+					<% for(item in jobclassLsit) {%>
+						<option value=${item.uids}>${item.name}</option>
+					<% } %>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Quartz表达式</td>
+			<td><input class="form-control" type="text" name="model.to_quartztimes" valid="vtext" validname="Quartz表达式"   /></td>
+		</tr>
+
+		<tr>
+			<td>备注</td>
+			<td>
+				<textarea class="form-control" rows="4" cols="30" name="model.remark"></textarea>
+			</td>
+		</tr>
+
+	</table>
+
+	<div style="height: 50px;clear: both;">&nbsp;</div>
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container" style="padding: 5px 0px 5px 0px;text-align: center;">
+			<button class="btn btn-primary" onclick="return oper.save();">保 存</button>
+			<button class="btn btn-default" onclick="closeIframe();return false;">关 闭</button>
+		</div>
+	</nav>
+</form>
+<%}; %>
+
+<% layout("/pages/template/_layout.html",{head:headContent,body:bodyContent}){ %>
+DIRECTIVE SAFE_OUTPUT_CLOSE;
+<%} %>

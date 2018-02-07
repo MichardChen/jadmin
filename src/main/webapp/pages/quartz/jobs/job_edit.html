@@ -1,0 +1,88 @@
+<%
+DIRECTIVE SAFE_OUTPUT_OPEN;
+var headContent = {
+include("/pages/template/head.html"){}
+%>
+<script type="text/javascript">
+    var oper = {
+        save: function (id) {
+            if (!validForm()) {
+                return false;
+            }
+            var url = 'quartz/jobs/save/'+id;
+            form1.action = url;
+            form1.submit();
+            return true;
+        }
+    };
+
+</script>
+
+<%
+};
+var bodyContent = {
+%>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <caption>job详情</caption>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>job名称</th>
+            <th>执行类描述</th>
+            <th>定时运行时间（Quartz表达式）</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>${job.jobName}</td>
+            <td>${job.cName}</td>
+            <td>${job.quartztimes}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <caption>参数列表</caption>
+    </div>
+    <form name="form1" action="" method="post" class="form-horizontal"
+          role="form">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>参数名称</th>
+                <th>参数值</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <% for(item in values) {%>
+            <tr>
+                <input type="hidden" name="model.uids" value="${item.uids}"/>
+                <td>${item.uids}</td>
+                <td>${item.pName}</td>
+                <td><input class="form-control" type="text" name="model.paramvalue_value" valid="vtext" validname="参数值"
+                           value="${item.pValue}"/></td>
+            </tr>
+            <%}%>
+
+            </tbody>
+        </table>
+        <div style="height: 50px;clear: both;">&nbsp;</div>
+        <nav class="navbar navbar-default navbar-fixed-bottom">
+            <div class="container" style="padding: 5px 0px 5px 0px;text-align: center;">
+                <button class="btn btn-primary" onclick="return oper.save('pValue');">保 存</button>
+                <button class="btn btn-default" onclick="closeIframe();return false;">关 闭</button>
+            </div>
+        </nav>
+    </form>
+</div>
+<%}; %>
+
+<% layout("/pages/template/_layout.html",{head:headContent,body:bodyContent}){ %>
+DIRECTIVE SAFE_OUTPUT_CLOSE;
+<%} %>

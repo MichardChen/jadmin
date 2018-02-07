@@ -1,0 +1,43 @@
+<%
+var headContent = {
+include("/pages/template/head.html"){}
+};
+
+var bodyContent = {
+%>
+<form name="form1" action="" method="post" class="form-horizontal" role="form">
+	<!-- 数据列表 -->
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+			<tr>
+				<%  // 列表头部 %>
+				<th name="paramName" >参数名称</th>
+				<th name="paramType" >参数类型</th>
+				<th name="returnType" >返回值类型</th>
+			</tr>
+			</thead>
+			<tbody>
+				<%  // 列表内容 %>
+				<% for(item in classparamList) {%>
+					<tr>
+						<td>${item.paramName }</td>
+						<td>${item.paramType }</td>
+						<td>${item.returnType }</td>
+					</tr>
+				<%} %>
+			</tbody>
+		</table>
+
+	</table>
+
+	<div style="height: 50px;clear: both;">&nbsp;</div>
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container" style="padding: 5px 0px 5px 0px;text-align: center;">
+			<button class="btn btn-default" onclick="closeIframe();return false;">关 闭</button>
+		</div>
+	</nav>
+</form>
+<%}; %>
+
+<% layout("/pages/template/_layout.html",{head:headContent,body:bodyContent}){ %>
+<%} %>
