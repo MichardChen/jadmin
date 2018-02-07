@@ -53,6 +53,7 @@ public class BaseConfig extends JflyfoxConfig {
 	 * 配置全局拦截器
 	 */
 	public void configInterceptor(Interceptors me) {
+		
 		super.configInterceptor(me);
 		//Spring拦截 已不需要
 		//me.add(new IocInterceptor());

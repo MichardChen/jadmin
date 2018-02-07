@@ -34,6 +34,10 @@ public class UserInterceptor implements Interceptor {
 
         Controller controller = ai.getController();
 
+        if(ai.getControllerKey().contains("/rest")){
+			ai.invoke();
+		}
+        
         HttpServletRequest request = controller.getRequest();
         String referrer = request.getHeader("referer");
         String site = "http://" + request.getServerName();

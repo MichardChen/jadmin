@@ -36,7 +36,6 @@ public class SessionAttrInterceptor implements Interceptor {
 	public void intercept(Invocation ai) {
 
 		Controller controller = ai.getController();
-
 		HttpServletRequest request = controller.getRequest();
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute(Attr.SESSION_IS_MOILE);

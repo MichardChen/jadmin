@@ -17,6 +17,9 @@ public class JflyfoxInterceptor implements Interceptor {
 
 		Controller controller = ai.getController();
 
+		if(ai.getControllerKey().contains("/rest")){
+			ai.invoke();
+		}
 		// 设置公共属性
 		if (controller instanceof BaseController) {
 			BaseForm form = ((BaseController) controller).getModelByForm(BaseForm.class);

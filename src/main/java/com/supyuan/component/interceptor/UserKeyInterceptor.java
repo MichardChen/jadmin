@@ -19,6 +19,10 @@ public class UserKeyInterceptor implements Interceptor {
 
 		Controller controller = ai.getController();
 		
+		if(ai.getControllerKey().contains("/rest")){
+			ai.invoke();
+		}
+		
 		// 如果没有，就设置一个
 		Object key = controller.getSessionAttr(JFlyFoxUtils.USER_KEY);
 		if (key==null) {
